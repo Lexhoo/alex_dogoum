@@ -6,13 +6,11 @@ class Email extends Component {
     this.state = {
     email: 'mon@email.com',
     password: "monPassw0rd",
-    passwordbis:"passwordbis",
+    passwordbis:"",
     name: "James",
-    lastname: "Bond"
+    lastname: "Bond",
+    flash:""
     };
-
-
-    
   }
   updateEmailField = (event) => {
     this.setState({
@@ -21,16 +19,31 @@ class Email extends Component {
 }
 
   handleSubmit = (event) => {
+    const { flash, passwordbis, ...data} = this.state;
+    fetch("/auth/signup",
+{
+    method:  'POST',
+    headers:  new  Headers({
+        'Content-Type':  'application/json'
+    }),
+    body: JSON.stringify(data),
+})
+.then(res  =>  res.json())
+.then(
+    res  =>  this.setState({"flash":  res.flash}),
+    err  =>  this.setState({"flash":  err.flash})
+)
+
     event.preventDefault()
     console.log(`a name was submitted : ${JSON.stringify(this.state, 1, 1)}`);
-  }
+  } 
 
   render() {
     return(
     <div> 
 
       <h1>{JSON.stringify(this.state,1, 1)}</h1>
-      <form className="formulaire" onSubmit={this.handleSubmit}>
+      <form action="POST" onSubmit={this.handleSubmit}>
 
       <input type="email" name="email" value={this.state.email} onChange={this.updateEmailField}/>
       <input type="password" name="password" value={this.state.password} onChange={this.updateEmailField}/>
