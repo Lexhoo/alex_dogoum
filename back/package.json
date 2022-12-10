@@ -9,7 +9,7 @@
     "author": "wilder",
     "dependencies": {
         "body-parser": "^1.18.2",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "generator-express": "^2.17.2",
         "lodash": "^4.17.5",
         "morgan": "^1.9.1",
